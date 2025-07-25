@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hãy Cố Gắng Lên!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gentle-glow {
+            box-shadow: 0 4px 20px rgba(251, 146, 60, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .gentle-glow:hover {
+            box-shadow: 0 6px 25px rgba(251, 146, 60, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .floating-emoji {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: 10;
+            animation: floatUp 4s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(0.9);
+            }
+        }
+
+        .message-transition {
+            transition: all 0.6s ease-in-out;
+        }
+
+        .soft-pulse {
+            animation: softPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes softPulse {
+
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .gentle-bounce {
+            animation: gentleBounce 0.4s ease-out;
+        }
+
+        @keyframes gentleBounce {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .warm-gradient {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 50%, #fecaca 100%);
+        }
+
+        .petal {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fbbf24;
+            border-radius: 50% 0 50% 0;
+            animation: petalFall 6s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen warm-gradient overflow-hidden">
+    <!-- Gentle Petals -->
+    <div id="petals-container" class="fixed inset-0 pointer-events-none z-5"></div>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-8 relative z-10">
+        <!-- Title -->
+        <div class="text-center mb-8 fade-in">
+            <h1 class="text-3xl md:text-5xl font-medium text-orange-800 mb-4 leading-tight">
+                Hãy Cố Gắng Lên! 🌸
+            </h1>
+            <p class="text-lg md:text-xl text-orange-600 opacity-80">
+                Bạn không cô đơn trên hành trình này
+            </p>
+        </div>
+
+        <!-- Message Card -->
+        <div
+            class="bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 mb-8 max-w-lg mx-auto shadow-lg border border-orange-100 message-transition">
+            <div class="text-center">
+                <div class="text-3xl mb-4 soft-pulse">💌</div>
+                <div id="message-content">
+                    <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4 font-medium">
+                        "Bạn không một mình. Dù khó khăn đến mấy, luôn có người hiểu và sẵn sàng lắng nghe bạn."
+                    </p>
+                    <p class="text-orange-500 text-sm italic">Từ trái tim đến trái tim</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <button id="warmthBtn"
+            class="gentle-glow bg-gradient-to-r from-orange-300 to-yellow-300 hover:from-orange-400 hover:to-yellow-400 text-orange-800 font-medium py-4 px-8 rounded-full text-lg shadow-md transition-all duration-300 mb-6">
+            Gửi bạn một chút ấm áp 💌
+        </button>
+
+        <!-- Gentle Reminder -->
+        <div class="text-center text-orange-600 opacity-70 max-w-md">
+            <p class="text-sm leading-relaxed">
+                Hãy nhớ rằng cảm xúc của bạn hoàn toàn bình thường. Từ từ thôi, mọi thứ sẽ ổn thôi. 🕊️
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const gentleMessages = [
+            {
+                text: "Bạn không một mình. Dù khó khăn đến mấy, luôn có người hiểu và sẵn sàng lắng nghe bạn.",
+                signature: "Từ trái tim đến trái tim"
+            },
+            {
+                text: "Từ từ thôi... Không cần phải vội vàng. Hãy cho phép bản thân được cảm nhận và chữa lành.",
+                signature: "Với tình yêu thương"
+            },
+            {
+                text: "Bạn đã rất dũng cảm khi đối mặt với những gì mình đang trải qua. Điều đó đáng được trân trọng.",
+                signature: "Gửi đến bạn"
+            },
+            {
+                text: "Mỗi ngày bạn vượt qua được là một chiến thắng nhỏ. Hãy tự hào về bản thân mình.",
+                signature: "Với sự ngưỡng mộ"
+            },
+            {
+                text: "Cảm xúc của bạn có giá trị. Đừng cảm thấy tội lỗi vì những gì mình đang cảm nhận.",
+                signature: "Hiểu và đồng cảm"
+            },
+            {
+                text: "Bạn xứng đáng được yêu thương và chăm sóc, đặc biệt là từ chính bản thân mình.",
+                signature: "Với lòng trân trọng"
+            },
+            {
+                text: "Những ngày tối tăm sẽ qua đi. Ánh sáng nhẹ nhàng đang chờ đợi bạn phía trước.",
+                signature: "Hy vọng và tin tưởng"
+            },
+            {
+                text: "Hãy nhớ rằng việc nghỉ ngơi không phải là lười biếng. Bạn cần thời gian để hồi phục.",
+                signature: "Với sự quan tâm"
+            },
+            {
+                text: "Bạn mạnh mẽ hơn những gì mình nghĩ, nhưng cũng được phép yếu đuối khi cần thiết.",
+                signature: "Ôm ấp và động viên"
+            },
+            {
+                text: "Mỗi hơi thở sâu là một bước nhỏ hướng tới sự bình an. Hãy thở cùng nhịp với trái tim mình.",
+                signature: "Bình an trong tâm hồn"
+            }
+        ];
+
+        const warmthBtn = document.getElementById('warmthBtn');
+        const messageContent = document.getElementById('message-content');
+        const petalsContainer = document.getElementById('petals-container');
+
+        let currentMessageIndex = 0;
+
+        function createFloatingEmoji() {
+            const emojis = ['🌸', '🕊️', '💛', '🌿', '✨', '🤗', '💫', '🌺'];
+            const emoji = document.createElement('div');
+            emoji.className = 'floating-emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+            // Random position around the button
+            const btnRect = warmthBtn.getBoundingClientRect();
+            const x = btnRect.left + (Math.random() - 0.5) * 200;
+            const y = btnRect.top + (Math.random() - 0.5) * 100;
+
+            emoji.style.left = Math.max(20, Math.min(window.innerWidth - 50, x)) + 'px';
+            emoji.style.top = Math.max(20, Math.min(window.innerHeight - 50, y)) + 'px';
+
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.remove();
+            }, 4000);
+        }
+
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDelay = Math.random() * 2 + 's';
+            petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+
+            const colors = ['#fbbf24', '#f59e0b', '#f97316', '#fb923c'];
+            petal.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            petalsContainer.appendChild(petal);
+
+            setTimeout(() => {
+                petal.remove();
+            }, 7000);
+        }
+
+        function updateMessage() {
+            currentMessageIndex = (currentMessageIndex + 1) % gentleMessages.length;
+            const newMessage = gentleMessages[currentMessageIndex];
+
+            // Fade out
+            messageContent.style.opacity = '0';
+            messageContent.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                messageContent.innerHTML = `
+                    <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4 font-medium">
+                        "${newMessage.text}"
+                    </p>
+                    <p class="text-orange-500 text-sm italic">${newMessage.signature}</p>
+                `;
+
+                // Fade in
+                messageContent.style.opacity = '1';
+                messageContent.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        warmthBtn.addEventListener('click', function () {
+            // Gentle button animation
+            this.classList.add('gentle-bounce');
+            setTimeout(() => {
+                this.classList.remove('gentle-bounce');
+            }, 400);
+
+            // Update message
+            updateMessage();
+
+            // Create floating emojis
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => createFloatingEmoji(), i * 200);
+            }
+
+            // Create some petals
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => createPetal(), i * 100);
+            }
+        });
+
+        // Create gentle petals periodically
+        setInterval(() => {
+            if (Math.random() < 0.3) {
+                createPetal();
+            }
+        }, 2000);
+
+        // Initial petals
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => createPetal(), i * 1000);
+        }
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'964ad040178f02c6',t:'MTc1MzQzNzY2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
